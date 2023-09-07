@@ -1,0 +1,9 @@
+#1
+P,K,L,N=map(int, input().split())
+ans=0
+for i in range(1,N+1):
+    ans+=2*P + L*(i+1) + L*(i-1) + 2*K
+print(ans)
+#2
+P,K,L,N=map(int, input().split())
+print(2*N*(P+K+L)+L*N*(N-1))
