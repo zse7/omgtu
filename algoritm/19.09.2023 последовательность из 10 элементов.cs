@@ -50,7 +50,7 @@ class HelloWorld
     }
 }
 
-//минимальный элемент среди всех положительных
+//максимальный элемент среди всех положительных
 using System;
 class HelloWorld
 {
@@ -64,7 +64,7 @@ class HelloWorld
             a = Convert.ToInt32(Console.ReadLine());
             if (a > 0)
             {
-                if (a < k) k = a;
+                if (a > k) k = a;
             }
         }
         Console.WriteLine(k);
