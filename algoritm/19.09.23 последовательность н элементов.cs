@@ -71,22 +71,23 @@ class HelloWorld
 {
     static void Main()
     {
-        int n, x, y, max_podposled = 1, tec_podposled = 1;
+        int n, x, y, max = 1, cnt = 1;
         n = Convert.ToInt32(Console.ReadLine());
-        x = Convert.ToInt32(Console.ReadLine());
+        x = Convert.ToInt32(Console.ReadLine()); 
         for (int i = 1; i < n; i++)
         {
             y = Convert.ToInt32(Console.ReadLine());
             if (y > x)
             {
-                tec_podposled++;
-                max_podposled = tec_podposled;
+                cnt++;
             }
-            else
+            else if (cnt > max)
             {
-                tec_podposled = 1;
+                max = cnt;
+                cnt = 1;
             }
+            x = y;
         }
-        Console.WriteLine(max_podposled);
+        Console.WriteLine(max);
     }
 }
