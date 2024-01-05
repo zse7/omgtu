@@ -1,0 +1,85 @@
+using System;
+using System.Security.Policy;
+
+class Z
+{
+    static void Main()
+    {
+        string sortName="Fill", sortYear="2001", sortEducation="Second";
+        Person[] persons = new Person[10];
+        persons[0] = new Person("Ander", "2007", "Second", "d.26");
+        persons[1]= new Person("Tom", "2001", "Higher", "d.31");
+        persons[2]= new Person("Smit", "2004", "Second", "d.1");
+        persons[3]= new Person("Fill", "2003", "Null", "d.20");
+        persons[4]= new Person("Kris", "2001", "Null", "d.30");
+        persons[5]= new Person("Tom", "1999", "Higher", "d.4");
+        persons[6]= new Person("Ander", "2003", "Second", "d.25");
+        persons[7]= new Person("Own", "2004", "Second", "d.1");
+        persons[8]= new Person("Fill", "2004", "Higher", "d.41");
+        persons[9] = new Person("Own", "2001", "Hull", "d.21");
+        Console.WriteLine($"Сортировка по Имени: {sortName}");
+        for (int i = 0; i < persons.Length; i++)
+        {
+            Person person = persons[i];
+            if (person.sortByname(person, sortName) != null)
+            {
+                Console.WriteLine(person.getInf(person.sortByname(person, sortName)));
+            }
+        }
+        Console.WriteLine($"Сортировка по Году рождения: {sortYear}");
+        for(int i = 0;i < persons.Length;i++)
+        {
+            Person person = persons[i];
+            if (person.sortByyear(person, sortYear) != null)
+            {
+                Console.WriteLine(person.getInf(person.sortByyear(person, sortYear)));
+            }
+        }
+        Console.WriteLine($"Сортировка по Образованию: {sortEducation}");
+        for (int i = 0; i < persons.Length; i++)
+        {
+            Person person = persons[i];
+            if (person.sortByeducation(person, sortEducation)!= null)
+            {
+                Console.WriteLine(person.getInf(person.sortByeducation(person, sortEducation)));
+            }
+        }
+    }
+}
+class Person
+{
+    private string Name;
+    private string Year;
+    private string Education;
+    private string Address;
+    public Person(string name, string year, string education, string address)
+    {
+        this.Name = name;
+        this.Year = year;
+        this.Education = education;
+        this.Address = address;
+    }
+    public Person sortByname(Person person, string name)
+    {
+        if (person.Name.Equals(name)) return person;
+        else return null;
+    }
+    public Person sortByyear(Person person, string year)
+    {
+        if (person.Year.Equals(year)) return person;
+        else return null;
+    }
+    public Person sortByeducation(Person person, string education)
+    {
+        if (person.Education.Equals(education)) return person;
+        else return null;
+    }
+    public string getInf(Person person)
+    {
+        if (person != null)
+        {
+            return person.Name + ", " + person.Year + ", " + person.Education + ", " + person.Address;
+        }
+        else return null;
+    }
+}
