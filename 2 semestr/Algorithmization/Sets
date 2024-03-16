@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        SortedSet<int> set1 = AddSet("Введите элементы множества set1 (через пробел):");
+        SortedSet<int> set2 = AddSet("Введите элементы множества set2 (через пробел):");
+        SortedSet<int> set3 = AddSet("Введите элементы множества set3 (через пробел):");
+
+        Console.WriteLine();
+        SortedSet<int> peresech = new SortedSet<int>(set1);
+        peresech.IntersectWith(set2);
+        peresech.IntersectWith(set3);
+
+        Console.WriteLine("\nПересечение множеств:");
+        foreach (int item in peresech)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+        SortedSet<int> obied = new SortedSet<int>(set1);
+        obied.UnionWith(set2);
+        obied.UnionWith(set3);
+
+        Console.WriteLine("\nОбъединение множеств:");
+        foreach (int item in obied)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+        SortedSet<int> dop1 = new SortedSet<int>(obied);
+        dop1.ExceptWith(set1);
+
+        SortedSet<int> dop2 = new SortedSet<int>(obied);
+        dop2.ExceptWith(set2);
+
+        SortedSet<int> dop3 = new SortedSet<int>(obied);
+        dop3.ExceptWith(set3);
+
+        Console.WriteLine("\nДополнение для каждого множества до объединенного:");
+        Console.Write("Дополнение для set1: ");
+        foreach (int item in dop1)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+        Console.Write("Дополнение для set2: ");
+        foreach (int item in dop2)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+        Console.Write("Дополнение для set3: ");
+        foreach (int item in dop3)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+        static SortedSet<int> AddSet(string str)
+        {
+            Console.WriteLine(str);
+            string input = Console.ReadLine();
+            string[] elements = input.Split(' ');
+            SortedSet<int> set = new SortedSet<int>();
+
+            foreach (string element in elements)
+            {
+                if (int.TryParse(element, out int num))
+                {
+                    set.Add(num);
+                }
+                else
+                {
+                    Console.WriteLine($"Неверный формат числа: {element}. Элемент не будет добавлен в множество.");
+                }
+            }
+            return set;
+        }
+    }
+}
