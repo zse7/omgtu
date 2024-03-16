@@ -1,0 +1,93 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Queue<string[]> calls = new Queue<string[]>();
+        Dictionary<string, int> minutesDictionary = new Dictionary<string, int>(); 
+        Hashtable minutesHashtable = new Hashtable(); 
+
+        calls.Enqueue(new string[] { "89525889637", "2022-01-01", "10:00", "30" });
+        calls.Enqueue(new string[] { "89679851234", "2022-01-02", "12:00", "45" });
+        calls.Enqueue(new string[] { "89525889637", "2022-01-18", "09:00", "20" });
+        calls.Enqueue(new string[] { "89716335996", "2022-01-21", "18:00", "15" });
+        calls.Enqueue(new string[] { "89716335996", "2022-01-03", "17:00", "5" });
+        calls.Enqueue(new string[] { "89963347500", "2022-01-10", "06:00", "20" });
+        calls.Enqueue(new string[] { "89525889637", "2022-01-9", "09:00", "45" });
+
+        while (calls.Count > 0)
+        {
+            string[] data = calls.Dequeue();
+            string phoneNumber = data[0];
+            int minutes = Int32.Parse(data[3]);
+            if (minutesDictionary.ContainsKey(phoneNumber))
+            {
+                minutesDictionary[phoneNumber] += minutes;
+            }
+            else
+            {
+                minutesDictionary.Add(phoneNumber, minutes);
+            }
+            if (minutesHashtable.ContainsKey(phoneNumber))
+            {
+                minutesHashtable[phoneNumber] = (int)minutesHashtable[phoneNumber] + minutes;
+            }
+            else
+            {
+                minutesHashtable.Add(phoneNumber, minutes);
+            }
+        }
+        Console.WriteLine("По номерам: ");
+        foreach (var elements in minutesDictionary)
+        {
+            Console.WriteLine($"Номер телефона: {elements.Key}, Сумма минут (словарь): {elements.Value}, Сумма минут (хештаблица): {minutesHashtable[elements.Key]}");
+        }
+
+        Console.WriteLine();
+
+        Queue<string[]> inputData = new Queue<string[]>();
+        Dictionary<string, int> dateDictionary = new Dictionary<string, int>();
+        Hashtable dateHashtable = new Hashtable();
+
+        inputData.Enqueue(new string[] { "89525889637", "2022-01-01", "10:00", "30" });
+        inputData.Enqueue(new string[] { "89679851234", "2022-01-02", "12:00", "45" });
+        inputData.Enqueue(new string[] { "89525889637", "2022-01-01", "09:00", "20" });
+        inputData.Enqueue(new string[] { "89716335996", "2022-01-21", "18:00", "15" });
+        inputData.Enqueue(new string[] { "89716335996", "2022-01-01", "17:00", "5" });
+        inputData.Enqueue(new string[] { "89963347500", "2022-01-10", "06:00", "20" });
+        inputData.Enqueue(new string[] { "89525889637", "2022-01-9", "09:00", "45" });
+        while (inputData.Count > 0)
+        {
+            string[] data = inputData.Dequeue();
+            string phoneNumber = data[0];
+            string date = data[1];
+            int minutes = int.Parse(data[3]);
+
+            if (dateDictionary.ContainsKey(date))
+            {
+                dateDictionary[date] += minutes;
+            }
+            else
+            {
+                dateDictionary.Add(date, minutes);
+            }
+
+            if (dateHashtable.ContainsKey(date))
+            {
+                dateHashtable[date] = (int)dateHashtable[date] + minutes;
+            }
+            else
+            {
+                dateHashtable.Add(date, minutes);
+            }
+        }
+        Console.WriteLine("По дате:");
+        foreach (var elements in dateDictionary)
+        {
+            Console.WriteLine($"Дата: {elements.Key}, Сумма минут (словарь): {elements.Value}, Сумма минут (хештаблица): {dateHashtable[elements.Key]}");
+        }
+    }
+}
