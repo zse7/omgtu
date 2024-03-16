@@ -1,0 +1,62 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Polskay
+{
+    static void Main()
+    {
+        Console.Write("Введите обратную польскую запись: ");
+        string input = Console.ReadLine();
+        double result = Calculations(input);
+        Console.WriteLine($"Результат вычислений: {result}");
+    }
+    static double Calculations(string str)
+    {
+        Stack<double> stack = new Stack<double>();
+        foreach (string token in str.Split(' '))
+        {
+            if (double.TryParse(token, out double number))
+            {
+                stack.Push(number);
+            }
+            else
+            {
+                if (stack.Count < 2)
+                {
+                    throw new InvalidOperationException("Отсутствие элемента для произведения вычисления");
+                }
+                double operand2 = stack.Pop();
+                double operand1 = stack.Pop();
+                double result = 0;
+                switch (token)
+                {
+                    case "+":
+                        result = operand1 + operand2;
+                        break;
+                    case "-":
+                        result = operand1 - operand2;
+                        break;
+                    case "*":
+                        result = operand1 * operand2;
+                        break;
+                    case "/":
+                        if (operand2 == 0)
+                        {
+                            throw new DivideByZeroException("Деление на ноль недопустимо");
+                        }
+                        result = operand1 / operand2;
+                        break;
+                    default:
+                        throw new InvalidOperationException("Недопустимая операция");
+                }
+                stack.Push(result);
+            }
+        }
+        if (stack.Count != 1)
+        {
+            throw new InvalidOperationException("Отсутствие элемента для произведения вычисления");
+        }
+        return stack.Pop();
+    }
+}
